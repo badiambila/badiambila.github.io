@@ -1,0 +1,127 @@
+/* Mac OS X "Aqua" look (Jaguar / Panther era), shared by the settings panel and the status window.
+   Pink by default; presentation mode switches the tint to classic Aqua blue. */
+
+:root {
+  --aq-1: #fbd2e3; --aq-2: #f39ac0; --aq-3: #ea6a9f; --aq-4: #f7aecc;   /* gel gradient stops */
+  --aq-edge: #b3487a; --aq-row: #fdf0f6; --aq-ring: rgba(234, 106, 159, .5);
+}
+html[data-theme="blue"] {
+  --aq-1: #cfe3fb; --aq-2: #86b4ee; --aq-3: #5a98e6; --aq-4: #8dc0f7;
+  --aq-edge: #3f6fb4; --aq-row: #edf3fe; --aq-ring: rgba(80, 140, 230, .5);
+}
+
+/* ---- window ---- */
+.aqua-win {
+  background: #ececec repeating-linear-gradient(0deg, #f7f7f7 0, #f7f7f7 2px, #e8e8e8 2px, #e8e8e8 4px);
+  border: 1px solid #767676;
+  border-radius: 7px 7px 4px 4px;
+  box-shadow: 0 14px 32px rgba(0, 0, 0, .38), 0 2px 6px rgba(0, 0, 0, .28), inset 0 1px 0 rgba(255, 255, 255, .95);
+  color: #111;
+  font: 13px/1.4 "Lucida Grande", "Lucida Sans Unicode", Tahoma, Verdana, sans-serif;
+  overflow: hidden;
+}
+.aqua-win .titlebar {
+  position: relative; height: 24px; line-height: 23px; text-align: center;
+  font-size: 13px; color: #222; text-shadow: 0 1px 0 rgba(255, 255, 255, .8);
+  background: linear-gradient(#fafafa 0%, #dedede 48%, #cdcdcd 52%, #e2e2e2 100%);
+  border-bottom: 1px solid #858585;
+  box-shadow: inset 0 1px 0 #fff;
+  -webkit-user-select: none; -moz-user-select: none; user-select: none;
+}
+.aqua-win .title { padding: 0 70px; }
+.aqua-win .ab { padding: 14px 16px 14px; }
+
+/* traffic-light buttons */
+.tl {
+  position: absolute; top: 5px; width: 13px; height: 13px; border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, .4); overflow: hidden; cursor: pointer;
+  box-shadow: inset 0 -2px 3px rgba(255, 255, 255, .35), 0 1px 0 rgba(255, 255, 255, .75);
+}
+.tl::before {            /* glossy upper half */
+  content: ""; position: absolute; left: 2px; right: 2px; top: 1px; height: 5px;
+  border-radius: 50% 50% 40% 40%;
+  background: linear-gradient(rgba(255, 255, 255, .95), rgba(255, 255, 255, .15));
+}
+.tl.r { left: 8px;  background: radial-gradient(circle at 50% 115%, #ffb7ae, #e5392b 72%); }
+.tl.y { left: 28px; background: radial-gradient(circle at 50% 115%, #ffeaa6, #f0a91c 72%); }
+.tl.g { left: 48px; background: radial-gradient(circle at 50% 115%, #bff6c4, #34b64a 72%); }
+.tl:active { filter: brightness(.85); }
+
+/* ---- status dots (small glossy lights) ---- */
+.dot {
+  flex: 0 0 auto; width: 12px; height: 12px; border-radius: 50%; display: block;
+  border: 1px solid rgba(0, 0, 0, .4);
+  background: radial-gradient(circle at 35% 30%, #fff 0, var(--c1) 40%, var(--c2) 100%);
+  box-shadow: 0 0 5px var(--glow, transparent);
+}
+.unk  .dot { --c1: #e4e4e4; --c2: #9a9a9a; }
+.up   .dot { --c1: #6fe07c; --c2: #2a9a3b; --glow: rgba(60, 200, 80, .65); }
+.warn .dot { --c1: #ffd866; --c2: #d08a00; --glow: rgba(255, 190, 40, .65); }
+.down .dot { --c1: #ff8383; --c2: #bf2323; --glow: rgba(240, 60, 60, .65); }
+
+/* ---- footer row + buttons ---- */
+.aqua-win .foot { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 12px; }
+.aqua-win .when { color: #666; font-size: 11px; min-height: 14px; }
+
+.aqua-btn {
+  -webkit-appearance: none; -moz-appearance: none; appearance: none;
+  height: 22px; padding: 0 16px; margin: 0; border-radius: 11px;
+  border: 1px solid #858585; color: #111;
+  font: 12px "Lucida Grande", Tahoma, Verdana, sans-serif; text-shadow: 0 1px 0 rgba(255, 255, 255, .75);
+  background: linear-gradient(#fefefe 0%, #ededed 48%, #d6d6d6 52%, #f0f0f0 100%);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, .3), inset 0 1px 0 #fff;
+  cursor: pointer;
+}
+.aqua-btn:active { filter: brightness(.88); }
+.aqua-btn.def {
+  border-color: var(--aq-edge);
+  background: linear-gradient(var(--aq-1) 0%, var(--aq-2) 48%, var(--aq-3) 52%, var(--aq-4) 100%);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, .35), inset 0 1px 0 rgba(255, 255, 255, .7);
+  animation: aq-pulse 1.1s ease-in-out infinite alternate;
+}
+.aqua-btn.def:active { animation: none; }
+@keyframes aq-pulse { from { filter: brightness(1); } to { filter: brightness(1.14) saturate(1.12); } }
+@media (prefers-reduced-motion: reduce) { .aqua-btn.def { animation: none; } }
+
+/* ---- Aqua checkbox ---- */
+.chk { display: flex; gap: 10px; align-items: flex-start; cursor: pointer; margin: 0 0 12px; position: relative; }
+.chk input { position: absolute; opacity: 0; left: 0; top: 0; width: 16px; height: 16px; margin: 0; cursor: pointer; }
+.chk .box {
+  flex: 0 0 auto; position: relative; width: 17px; height: 17px; margin-top: 1px; border-radius: 4px;
+  border: 1px solid #777; background: linear-gradient(#fff, #dedede);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, .25), inset 0 1px 0 #fff;
+}
+.chk input:checked + .box {
+  border-color: var(--aq-edge);
+  background: linear-gradient(var(--aq-1) 0%, var(--aq-2) 48%, var(--aq-3) 52%, var(--aq-4) 100%);
+}
+.chk input:checked + .box::after {
+  content: ""; position: absolute; left: 5px; top: 1px; width: 5px; height: 10px;
+  border: solid #fff; border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(40deg); transform: rotate(40deg);
+  filter: drop-shadow(0 1px 0 rgba(0, 0, 0, .35));
+}
+.chk input:focus + .box { box-shadow: 0 0 0 3px var(--aq-ring), 0 1px 1px rgba(0, 0, 0, .25); }
+.chk .lbl { font-size: 13px; }
+.chk small { display: block; color: #666; font-size: 11px; margin-top: 2px; line-height: 1.35; }
+
+/* ---- settings panel (hamburger menu) ---- */
+#panel { position: fixed; top: 42px; right: 14px; z-index: 20; width: 350px; display: none; }
+#panel.open { display: block; }
+
+/* ---- status lights on the start page (no window, just text on the sky) ---- */
+.stat {
+  position: absolute; right: 0; top: 46px; width: 270px; z-index: 1;
+  font: 12px/1.4 Tahoma, Verdana, sans-serif; color: #2f2630;
+  text-shadow: 0 0 3px rgba(255, 255, 255, .95), 0 0 6px rgba(255, 255, 255, .7), 0 1px 0 rgba(255, 255, 255, .8);
+}
+html[data-theme="blue"] .stat { color: #1f2a3a; }
+.stat ul { list-style: none; margin: 0; padding: 0; }
+.stat li { display: flex; align-items: center; gap: 8px; padding: 3px 0; }
+.stat .n { font-weight: bold; white-space: nowrap; }
+.stat .d { margin-left: auto; min-width: 0; font-size: 11px; opacity: .85; text-align: right;
+           overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.stat .when { margin-top: 3px; font-size: 10px; text-align: right; opacity: .75; cursor: pointer; }
+.stat .when:hover { opacity: 1; text-decoration: underline; }
+.stat.gone { display: none; }
+@media (max-width: 700px) { .stat { display: none; } }
